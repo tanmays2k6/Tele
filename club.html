@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect - Your Hub for University Life</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --accent-color: #ec4899;
+            --dark-color: #111827;
+            --light-color: #f9fafb;
+            --text-color: #374151;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            
+            /* Club theme colors */
+            --debate-color: #1A3A5F;
+            --debate-accent: #7B2D43;
+            --coding-color: #2563EB;
+            --coding-accent: #059669;
+            --quiz-color: #6B46C1;
+            --quiz-accent: #0D9488;
+            --entrepreneur-color: #3B82F6;
+            --entrepreneur-accent: #F59E0B;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        /* Modern Glassmorphism Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+        }
+        
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 10px 15px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 100px 0 80px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://cdn.dribbble.com/users/1090020/screenshots/16449394/media/f8899efa0d5f8a0c6c6d17b386e3b099.png?resize=1600x1200&vertical=center') no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #db2777;
+            border-color: #db2777;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid var(--gray-200);
+            padding: 15px 20px;
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-category {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Utility Classes */
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+        
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .bg-accent {
+            background-color: var(--accent-color) !important;
+        }
+        
+        /* Club Card Styles */
+        .club-card {
+            position: relative;
+            height: 380px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .club-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .club-card:hover .club-card__image {
+            transform: scale(1.05);
+        }
+        
+        .club-card__overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .club-card:hover .club-card__overlay {
+            padding-bottom: 50px;
+        }
+        
+        .club-card__title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .club-card__description {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .club-card__tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .club-card__debate {
+            background-color: var(--debate-color);
+        }
+        
+        .club-card__debate .club-card__tag {
+            background-color: var(--debate-accent);
+        }
+        
+        .club-card__debate .btn {
+            background-color: var(--debate-accent);
+            border-color: var(--debate-accent);
+        }
+        
+        .club-card__debate .btn:hover {
+            background-color: #6a2639;
+            border-color: #6a2639;
+        }
+        
+        .club-card__coding {
+            background-color: var(--coding-color);
+        }
+        
+        .club-card__coding .club-card__tag {
+            background-color: var(--coding-accent);
+        }
+        
+        .club-card__coding .btn {
+            background-color: var(--coding-accent);
+            border-color: var(--coding-accent);
+        }
+        
+        .club-card__coding .btn:hover {
+            background-color: #047857;
+            border-color: #047857;
+        }
+        
+        .club-card__quiz {
+            background-color: var(--quiz-color);
+        }
+        
+        .club-card__quiz .club-card__tag {
+            background-color: var(--quiz-accent);
+        }
+        
+        .club-card__quiz .btn {
+            background-color: var(--quiz-accent);
+            border-color: var(--quiz-accent);
+        }
+        
+        .club-card__quiz .btn:hover {
+            background-color: #0b8276;
+            border-color: #0b8276;
+        }
+        
+        .club-card__entrepreneur {
+            background-color: var(--entrepreneur-color);
+        }
+        
+        .club-card__entrepreneur .club-card__tag {
+            background-color: var(--entrepreneur-accent);
+        }
+        
+        .club-card__entrepreneur .btn {
+            background-color: var(--entrepreneur-accent);
+            border-color: var(--entrepreneur-accent);
+        }
+        
+        .club-card__entrepreneur .btn:hover {
+            background-color: #E97D05;
+            border-color: #E97D05;
+        }
+        
+        /* Club section animation */
+        .club-animation-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+            margin-top: -20px;
+        }
+        
+        .club-animation-shape {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            background-color: var(--debate-color);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            top: 60%;
+            left: 80%;
+            background-color: var(--coding-color);
+            border-radius: 64% 36% 27% 73% / 55% 58% 42% 45%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .shape-3 {
+            top: 30%;
+            left: 90%;
+            background-color: var(--quiz-color);
+            border-radius: 41% 59% 40% 60% / 65% 66% 34% 35%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .shape-4 {
+            top: 70%;
+            left: 20%;
+            background-color: var(--entrepreneur-accent);
+            border-radius: 59% 41% 52% 48% / 44% 59% 41% 56%;
+            animation: float 9s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(15px, 15px) rotate(10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+        
+        /* Section styles */
+        .section-title {
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* Animations */
+        .hover-float {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-float:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus<span class="text-accent">Connect</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#clubs">Clubs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                </ul>
+                <button class="btn btn-primary ms-lg-3">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h1 class="hero-title">Your Gateway to <span class="text-warning">Campus Life</span></h1>
+                    <p class="hero-subtitle mb-4">Discover clubs, events, and resources that make your university experience memorable. Join communities that match your interests and develop valuable skills.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-2">
+                        <button class="btn btn-light btn-lg">Explore Clubs</button>
+                        <button class="btn btn-outline-light btn-lg">Upcoming Events</button>
+                    </div>
+                </div>
+                <div class="col-lg-5" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=2000" class="img-fluid rounded-3 shadow-lg" alt="Students at campus">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club Section -->
+    <section id="clubs" class="py-5">
+        <div class="club-animation-container">
+            <div class="shape-1 club-animation-shape"></div>
+            <div class="shape-2 club-animation-shape"></div>
+            <div class="shape-3 club-animation-shape"></div>
+            <div class="shape-4 club-animation-shape"></div>
+        </div>
+        
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Campus Clubs</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Join one of our diverse student clubs to make friends, develop skills, and enhance your university experience.
+            </p>
+            
+            <div class="row">
+                <!-- Debate Club Card -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+                    <div class="club-card club-card__debate">
+                        <img src="https://images.unsplash.com/photo-1569437061238-add43afbba76?auto=format&fit=crop&q=80&w=1000" class="club-card__image" alt="Debate Club">
+                        <span class="club-card__tag">Debate</span>
+                        <div class="club-card__overlay">
+                            <h3 class="club-card__title">Eloquence</h3>
+                            <p class="club-card__description">Master the art of persuasion and critical thinking in our university's premier debate club.</p>
+                            <a href="debate.html" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Coding Club Card -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="club-card club-card__coding">
+                        <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&q=80&w=1000" class="club-card__image" alt="Coding Club">
+                        <span class="club-card__tag">Coding</span>
+                        <div class="club-card__overlay">
+                            <h3 class="club-card__title">CodeForge</h3>
+                            <p class="club-card__description">Build tomorrow's technology with like-minded programmers and tech enthusiasts.</p>
+                            <a href="code.html" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiz Club Card -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="450">
+                    <div class="club-card club-card__quiz">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=1000" class="club-card__image" alt="Quiz Club">
+                        <span class="club-card__tag">Quiz</span>
+                        <div class="club-card__overlay">
+                            <h3 class="club-card__title">Brainwave</h3>
+                            <p class="club-card__description">Test your knowledge and compete in thrilling quiz competitions across various subjects.</p>
+                            <a href="quiz.html" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Entrepreneurship Club Card -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+                    <div class="club-card club-card__entrepreneur">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=1000" class="club-card__image" alt="Entrepreneurship Club">
+                        <span class="club-card__tag">Business</span>
+                        <div class="club-card__overlay">
+                            <h3 class="club-card__title">Venture</h3>
+                            <p class="club-card__description">Transform your innovative ideas into successful businesses with mentorship and resources.</p>
+                            <a href="ecell.html" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Preview Section -->
+    <section id="events" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Upcoming Events</h2>
+            <p class="section-subtitle">
+                Don't miss these exciting opportunities to learn, connect, and engage with the campus community.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1561489413-985b06da5bee?auto=format&fit=crop&q=80&w=1000" class="card-img-top" alt="Event">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary">CodeForge</span>
+                                <small class="text-muted">April 25, 2025</small>
+                            </div>
+                            <h5 class="card-title">Spring Hackathon 2025</h5>
+                            <p class="card-text">48-hour coding challenge to build innovative solutions addressing real-world problems.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-map-marker-alt me-2 text-primary"></i>Tech Hub, Building A</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000" class="card-img-top" alt="Event">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-danger">Eloquence</span>
+                                <small class="text-muted">May 5, 2025</small>
+                            </div>
+                            <h5 class="card-title">Annual Debate Tournament</h5>
+                            <p class="card-text">Witness intense intellectual battles as teams debate on contemporary global issues.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-map-marker-alt me-2 text-primary"></i>Main Auditorium</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000" class="card-img-top" alt="Event">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-warning text-dark">Venture</span>
+                                <small class="text-muted">May 15, 2025</small>
+                            </div>
+                            <h5 class="card-title">Founder's Fireside Chat</h5>
+                            <p class="card-text">Join us for an intimate conversation with Sarah Chen, founder of EcoTech Solutions.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-map-marker-alt me-2 text-primary"></i>Business School Auditorium</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">View All Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Student Resources</h2>
+            <p class="section-subtitle">
+                Access tools and information to help you succeed in your academic and extracurricular pursuits.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up">
+                    <div class="card hover-float h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-flex mb-3">
+                                <i class="fas fa-calendar-alt text-primary fa-2x"></i>
+                            </div>
+                            <h5 class="card-title">Club Meeting Schedule</h5>
+                            <p class="card-text">Find the perfect club meeting times that fit your schedule.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary mt-3">View Schedule</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card hover-float h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="rounded-circle bg-success bg-opacity-10 p-3 d-inline-flex mb-3">
+                                <i class="fas fa-book text-success fa-2x"></i>
+                            </div>
+                            <h5 class="card-title">Learning Materials</h5>
+                            <p class="card-text">Access study guides, practice problems, and educational resources.</p>
+                            <a href="#" class="btn btn-sm btn-outline-success mt-3">Browse Resources</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card hover-float h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="rounded-circle bg-warning bg-opacity-10 p-3 d-inline-flex mb-3">
+                                <i class="fas fa-bullhorn text-warning fa-2x"></i>
+                            </div>
+                            <h5 class="card-title">Event Promotion</h5>
+                            <p class="card-text">Get the word out about your club's upcoming events and activities.</p>
+                            <a href="#" class="btn btn-sm btn-outline-warning mt-3">Submit Event</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card hover-float h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="rounded-circle bg-danger bg-opacity-10 p-3 d-inline-flex mb-3">
+                                <i class="fas fa-handshake text-danger fa-2x"></i>
+                            </div>
+                            <h5 class="card-title">Mentorship Program</h5>
+                            <p class="card-text">Connect with experienced mentors to guide your academic journey.</p>
+                            <a href="#" class="btn btn-sm btn-outline-danger mt-3">Find Mentor</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4">Stay Updated</h2>
+                    <p class="lead mb-5">Subscribe to our newsletter for the latest campus events, club activities, and resources.</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <form class="d-flex gap-2">
+                                <input type="email" class="form-control form-control-lg" placeholder="Your email address">
+                                <button type="submit" class="btn btn-warning btn-lg px-4">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h3 class="footer-heading">Campus<span class="text-warning">Connect</span></h3>
+                    <p class="mb-4">Your one-stop platform for campus engagement, club discovery, and university resources.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#clubs" class="footer-link">Clubs</a></li>
+                        <li><a href="#events" class="footer-link">Events</a></li>
+                        <li><a href="#resources" class="footer-link">Resources</a></li>
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h4 class="footer-heading">Clubs</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="debate.html" class="footer-link">Eloquence Debate Club</a></li>
+                        <li><a href="code.html" class="footer-link">CodeForge Coding Club</a></li>
+                        <li><a href="quiz.html" class="footer-link">Brainwave Quiz Club</a></li>
+                        <li><a href="ecell.html" class="footer-link">Venture Entrepreneurship Club</a></li>
+                        <li><a href="#" class="footer-link">View All Clubs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="footer-heading">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-map-marker-alt mt-1 me-3 text-accent"></i>
+                            <span>Student Center, Room 101<br>XYZ College Campus</span>
+                        </li>
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-envelope mt-1 me-3 text-accent"></i>
+                            <span>contact@campusconnect.edu</span>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-phone-alt mt-1 me-3 text-accent"></i>
+                            <span>+919876543210</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 CampusConnect. All rights reserved. | <a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-3');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
- // Initialize AOS animations
- document.addEventListener('DOMContentLoaded', function() {
+
+// Initialize AOS animations
+document.addEventListener('DOMContentLoaded', function() {
     // Page Transition Animation
     const pageTransition = document.querySelector('.page-transition');
     
@@ -43,124 +44,169 @@
         });
     }, 800);
     
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetElement = document.querySelector(this.getAttribute('href'));
-            if (targetElement) {
-                // Show transition animation
-                pageTransition.classList.add('active');
-                
-                setTimeout(() => {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Hide transition animation
-                    setTimeout(() => {
-                        pageTransition.classList.remove('active');
-                        pageTransition.classList.add('exit');
-                        
-                        setTimeout(() => {
-                            pageTransition.classList.remove('exit');
-                        }, 500);
-                    }, 300);
-                }, 300);
-            }
+    // Carousel setup
+    var carousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
+        interval: 5000
+    });
+    
+    // Confetti Animation Function
+    function createConfetti() {
+        const colors = ['#6366f1', '#ec4899', '#f43f5e', '#10b981', '#3b82f6', '#f59e0b', '#06b6d4'];
+        const container = document.getElementById('confetti-container');
+        container.innerHTML = '';
+        
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 5 + 's';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            container.appendChild(confetti);
+        }
+    }
+    
+    // Event Card Hover Effects
+    const eventCards = document.querySelectorAll('.event-card');
+    eventCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-15px) rotateY(5deg) rotateX(5deg)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
         });
     });
-
-    const navbar = document.querySelector('.navbar');
-            let lastScrollTop = 0;
-            
-            window.addEventListener('scroll', function() {
-                let st = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (st > 50) {
-                    navbar.style.padding = '10px 0';
-                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                    navbar.style.backdropFilter = 'blur(15px)';
-                    navbar.style.background = 'rgba(255, 255, 255, 0.8) !important';
-                } else {
-                    navbar.style.padding = '15px 0';
-                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
-                    navbar.style.backdropFilter = 'blur(10px)';
-                    navbar.style.background = 'rgba(255, 255, 255, 0.85) !important';
-                }
-                
-                // Hide navbar on scroll down, show on scroll up
-                if (st > lastScrollTop && st > 200) {
-                    // Scrolling down
-                    navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    // Scrolling up
-                    navbar.style.transform = 'translateY(0)';
-                }
-                
-                lastScrollTop = st <= 0 ? 0 : st;
+    
+    // Floating Action Button Scroll to Top
+    const scrollTopBtn = document.querySelector('.position-fixed .btn-accent');
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
             
-            // Initialize ripple effect for buttons
-            const rippleButtons = document.querySelectorAll('.ripple-effect');
-            rippleButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const x = e.clientX - e.target.getBoundingClientRect().left;
-                    const y = e.clientY - e.target.getBoundingClientRect().top;
-                    
-                    const ripple = document.createElement('span');
-                    ripple.className = 'ripple';
-                    ripple.style.left = `${x}px`;
-                    ripple.style.top = `${y}px`;
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
+            // Trigger confetti on scroll to top
+            createConfetti();
             
-            // Initialize magnetic effect
-            const magneticElements = document.querySelectorAll('.magnetic-effect');
-            magneticElements.forEach(element => {
-                element.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    const mouseX = e.clientX - centerX;
-                    const mouseY = e.clientY - centerY;
-                    
-                    const maxMove = 10; // maximum movement in pixels
-                    const moveX = (mouseX / rect.width) * maxMove;
-                    const moveY = (mouseY / rect.height) * maxMove;
-                    
-                    this.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                });
-                
-                element.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                    this.style.transition = 'transform 0.5s ease';
-                });
-            });
-            
-            // Animate staggered items
-            const staggerItems = document.querySelectorAll('.stagger-item');
-            staggerItems.forEach((item, index) => {
-                item.style.animationDelay = `${0.1 * index}s`;
-            });
-            
-            // Typewriter effect
-            const typewriterElements = document.querySelectorAll('.typewriter');
-            typewriterElements.forEach(element => {
-                const text = element.textContent;
-                element.textContent = '';
-                element.style.width = '0';
-                
-                setTimeout(() => {
-                    element.textContent = text;
-                    element.style.width = '100%';
-                }, 500);
-            });
+            // Remove confetti after animation
+            setTimeout(() => {
+                const container = document.getElementById('confetti-container');
+                container.innerHTML = '';
+            }, 5000);
         });
+        
+        // Show/hide scroll button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.transform = 'translateY(20px)';
+            }
+        });
+    }
+    
+    // Initial style for scroll button
+    if (scrollTopBtn) {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.transform = 'translateY(20px)';
+        scrollTopBtn.style.transition = 'all 0.3s ease';
+    }
+    
+    // Animate cards on mouseover with random tilt direction
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            const mouseX = e.clientX - cardCenterX;
+            const mouseY = e.clientY - cardCenterY;
+            
+            // Calculate rotation based on mouse position
+            const rotateY = mouseX / 10;
+            const rotateX = -mouseY / 10;
+            
+            // Apply the transform
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.transition = 'all 0.5s ease';
+        });
+    });
+    
+    // Initialize ripple effect for buttons
+    const rippleButtons = document.querySelectorAll('.ripple-effect');
+    rippleButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+    
+    // Initialize magnetic effect
+    const magneticElements = document.querySelectorAll('.magnetic-effect');
+    magneticElements.forEach(element => {
+        element.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+            
+            const maxMove = 10; // maximum movement in pixels
+            const moveX = (mouseX / rect.width) * maxMove;
+            const moveY = (mouseY / rect.height) * maxMove;
+            
+            this.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.transition = 'transform 0.5s ease';
+        });
+    });
+    
+    // Animate staggered items
+    const staggerItems = document.querySelectorAll('.stagger-item');
+    staggerItems.forEach((item, index) => {
+        item.style.animationDelay = `${0.1 * index}s`;
+    });
+    
+    // Randomly change colors periodically for dynamic effect
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    
+    // Periodically update colors for dynamic effect
+    setInterval(() => {
+        const primary = getRandomColor();
+        const accent = getRandomColor();
+        document.documentElement.style.setProperty('--primary-color', primary);
+        document.documentElement.style.setProperty('--accent-color', accent);
+    }, 30000); // Change colors every 30 seconds
+});

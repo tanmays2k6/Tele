@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Brainwave - College Quiz Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* CSS Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Global Styles */
+    :root {
+      --purple: #6B46C1;
+      --teal: #0D9488;
+      --amber: #F59E0B;
+      --slate: #334155;
+      --lightGray: #F8FAFC;
+      --white: #FFFFFF;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--slate);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      color: var(--slate);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-divider {
+      width: 80px;
+      height: 4px;
+      background-color: var(--amber);
+      margin: 0 auto 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: #5a38a8;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-teal {
+      background-color: var(--teal);
+      color: var(--white);
+    }
+
+    .btn-teal:hover {
+      background-color: #0b8276;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.5rem 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      color: var(--purple);
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--slate);
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .desktop-nav ul {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .desktop-nav a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      color: var(--slate);
+      transition: color 0.3s ease;
+    }
+
+    .desktop-nav a:hover {
+      color: var(--purple);
+    }
+
+    .mobile-menu-btn {
+      background: none;
+      border: none;
+      color: var(--slate);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+      padding: 1rem 0;
+    }
+
+    .mobile-nav.active {
+      display: block;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 0.75rem 1rem;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--slate);
+      border-radius: 4px;
+    }
+
+    .mobile-nav a:hover {
+      background-color: var(--lightGray);
+    }
+
+    /* Hero Section */
+    .hero {
+      background-color: var(--purple);
+      color: var(--white);
+      padding: 5rem 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* About Section */
+    .about {
+      padding: 5rem 0;
+      background-color: var(--white);
+    }
+
+    .about-content {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .achievements {
+      margin-top: 1.5rem;
+    }
+
+    .achievement-item {
+      display: flex;
+      align-items: start;
+      margin-bottom: 0.75rem;
+    }
+
+    .achievement-item i {
+      color: var(--amber);
+      margin-top: 0.25rem;
+      margin-right: 0.75rem;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background-color: var(--purple);
+      color: var(--white);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-formats {
+      margin-top: 5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .format-card {
+      background-color: var(--lightGray);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .format-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .format-icon {
+      color: var(--teal);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Events Section */
+    .events {
+      padding: 5rem 0;
+      background-color: var(--lightGray);
+    }
+
+    .events-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .event-card {
+      background-color: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .event-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-image {
+      position: relative;
+      height: 200px;
+    }
+
+    .event-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(107, 70, 193, 0.85) 0%, rgba(107, 70, 193, 0) 100%);
+    }
+
+    .event-date {
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
+
+    .event-content {
+      padding: 1.5rem;
+    }
+
+    .event-content h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .event-location {
+      display: flex;
+      align-items: center;
+      color: var(--slate);
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .event-location i {
+      color: var(--teal);
+      margin-right: 0.5rem;
+    }
+
+    .view-all {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .view-all a {
+      display: inline-flex;
+      align-items: center;
+      color: var(--purple);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .view-all a:hover {
+      color: var(--teal);
+      transform: translateX(5px);
+    }
+
+    .view-all i {
+      margin-left: 0.5rem;
+    }
+
+    /* Resources Section */
+    .resources {
+      padding: 5rem 0;
+      background-color: var(--lightGray);
+    }
+
+    .resources-container {
+      margin-top: 3rem;
+      background-color: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .resources-tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e5e5;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--slate);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      color: var(--purple);
+      border-bottom-color: var(--teal);
+    }
+
+    .tab-btn:hover:not(.active) {
+      color: var(--purple);
+      border-bottom-color: var(--purple);
+    }
+
+    .resources-content {
+      padding: 2rem;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .resource-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .resource-card:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .resource-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .resource-title i {
+      color: var(--teal);
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+    }
+
+    .resource-title h3 {
+      font-size: 1.25rem;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--purple);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .resource-link:hover {
+      color: var(--teal);
+    }
+
+    .resource-link i {
+      margin-left: 0.5rem;
+    }
+
+
+    /* Contact Section */
+    .contact {
+      padding: 5rem 0;
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .contact-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .contact h2 {
+      color: var(--white);
+    }
+
+    .contact-form h3, .contact-info h3 {
+      color: var(--white);
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--amber);
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-error {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-info-container {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-icon {
+      flex-shrink: 0;
+      color: var(--amber);
+      font-size: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .info-content {
+      margin-left: 1rem;
+    }
+
+    .info-content h4 {
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .social-links {
+      margin-top: 2rem;
+    }
+
+    .social-links h4 {
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 0;
+      background-color: var(--slate);
+      color: var(--white);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo i {
+      color: var(--amber);
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .footer-logo span {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .footer-about {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      color: var(--white);
+      transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--amber);
+    }
+
+    .footer-heading {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--amber);
+    }
+
+    .newsletter-form {
+      display: flex;
+      margin-top: 1.5rem;
+    }
+
+    .newsletter-input {
+      flex-grow: 1;
+      padding: 0.75rem 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px 0 0 8px;
+      color: var(--white);
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--amber);
+    }
+
+    .newsletter-btn {
+      background-color: var(--teal);
+      color: var(--white);
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+      background-color: #0b8276;
+    }
+
+    .footer-bottom {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    /* Media Queries */
+    @media (min-width: 640px) {
+      .hero-buttons {
+        flex-direction: row;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero p {
+        font-size: 1.5rem;
+      }
+
+      .events-grid, .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quiz-formats, .resources-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .desktop-nav {
+        display: block;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      .about-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .events-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .quiz-formats, .resources-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-brain"></i>
+          <span class="logo-text">Brainwave</span>
+        </div>
+        
+        <nav class="desktop-nav">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+          <i class="fas fa-bars" id="menu-icon"></i>
+        </button>
+      </div>
+      
+      <nav class="mobile-nav" id="mobile-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="#team">Team</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Unlock Your Knowledge Potential</h1>
+        <p>Welcome to Brainwave, XYZ College's premier quiz club where curiosity is celebrated and knowledge is put to the test through competitive quizzing and fun intellectual challenges.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Join Our Club</a>
+          <a href="#events" class="btn btn-secondary">Upcoming Quiz Events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">About Brainwave</h2>
+      <div class="section-divider"></div>
+      <p class="text-center">Established in 2010, our quiz club has been promoting intellectual curiosity and the joy of learning across a wide range of subjects.</p>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Our Mission</h3>
+          <p>At Brainwave, we aim to create a vibrant community where students can enhance their knowledge, develop quick thinking abilities, and engage in friendly intellectual competition while building connections across disciplines.</p>
+          
+          <h3>Our Achievements</h3>
+          <div class="achievements">
+            <div class="achievement-item">
+              <i class="fas fa-medal"></i>
+              <span>National Collegiate Quiz Championship Winners (2023)</span>
+            </div>
+            <div class="achievement-item">
+              <i class="fas fa-medal"></i>
+              <span>Regional Trivia League Champions (2022)</span>
+            </div>
+            <div class="achievement-item">
+              <i class="fas fa-medal"></i>
+              <span>Inter-University Quiz Bowl Finalists (2021)</span>
+            </div>
+            <div class="achievement-item">
+              <i class="fas fa-medal"></i>
+              <span>Knowledge Olympiad Gold Medal (2021)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1578269174936-2709b6aeb913?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="Quiz team in action">
+          <div class="about-badge">
+            <p>13+ Years of Excellence</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="quiz-formats">
+        <div class="format-card">
+          <div class="format-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Rapid Fire Quiz</h3>
+          <p>A fast-paced format testing quick recall with time-bound rounds, challenging participants to think on their feet with minimal hesitation.</p>
+        </div>
+        
+        <div class="format-card">
+          <div class="format-icon">
+            <i class="fas fa-puzzle-piece"></i>
+          </div>
+          <h3>Themed Quizzes</h3>
+          <p>Specialized rounds focused on particular subjects from pop culture and sports to science and history, allowing participants to showcase their expertise.</p>
+        </div>
+        
+        <div class="format-card">
+          <div class="format-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Team Challenge</h3>
+          <p>Collaborative quizzing where teams of 3-4 members pool their knowledge across diverse topics to solve complex questions and puzzles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="events">
+    <div class="container">
+      <h2 class="section-title">Upcoming Events</h2>
+      <div class="section-divider"></div>
+      <p class="text-center">Join us for our exciting quiz competitions, knowledge sessions, and trivia nights. All events are open to both members and interested visitors.</p>
+      
+      <div class="events-grid">
+        <div class="event-card">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="Trivia Night Championship">
+            <div class="event-overlay">
+              <div class="event-date">May 12, 2025 • 7:00 PM</div>
+            </div>
+          </div>
+          <div class="event-content">
+            <h3>Spring Trivia Championship</h3>
+            <p>Our flagship trivia event with exciting prizes, challenging questions across multiple categories, and plenty of fun.</p>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>ISE Seminar Hall</span>
+            </div>
+            <a href="#" class="btn btn-teal">Register Now</a>
+          </div>
+        </div>
+        
+        <div class="event-card">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="Pop Culture Quiz">
+            <div class="event-overlay">
+              <div class="event-date">May 20, 2025 • 6:30 PM</div>
+            </div>
+          </div>
+          <div class="event-content">
+            <h3>Pop Culture Quiz Night</h3>
+            <p>Test your knowledge of movies, music, TV shows, and internet trends in this entertaining evening of pop culture trivia.</p>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>New Library</span>
+            </div>
+            <a href="#" class="btn btn-teal">Register Now</a>
+          </div>
+        </div>
+        
+        <div class="event-card">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="Science Quiz Bowl">
+            <div class="event-overlay">
+              <div class="event-date">June 3, 2025 • 5:00 PM</div>
+            </div>
+          </div>
+          <div class="event-content">
+            <h3>Science & Tech Quiz Bowl</h3>
+            <p>A specialized quiz focusing on scientific discoveries, technological innovations, and STEM trivia for the science enthusiasts.</p>
+            <div class="event-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Science Building</span>
+            </div>
+            <a href="#" class="btn btn-teal">Register Now</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="view-all">
+        <a href="#">
+          <span>View All Upcoming Events</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Resources Section -->
+  <section id="resources" class="resources">
+    <div class="container">
+      <h2 class="section-title">Quiz Resources</h2>
+      <div class="section-divider"></div>
+      <p class="text-center">Access our collection of materials to help you improve your quizzing skills and expand your knowledge base.</p>
+      
+      <div class="resources-container">
+        <div class="resources-tabs">
+          <button class="tab-btn active" data-tab="practice">Practice Questions</button>
+          <button class="tab-btn" data-tab="strategy">Quiz Strategies</button>
+          <button class="tab-btn" data-tab="topics">Topic Guides</button>
+          <button class="tab-btn" data-tab="archives">Past Competitions</button>
+        </div>
+        
+        <div class="resources-content">
+          <div class="resources-grid" id="resources-grid">
+            <!-- Resource cards will be populated by JavaScript -->
+          </div>
+          
+          <div class="view-all">
+            <a href="#" id="view-all-resources">
+              <span>View All Resources</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Join Brainwave</h2>
+      <div class="section-divider"></div>
+      <p class="text-center">Interested in testing your knowledge and making friends who share your love for quizzing? Join our club today!</p>
+      
+      <div class="contact-grid">
+        <div class="contact-form">
+          <h3>Get in Touch</h3>
+          <form id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject" class="form-label">Subject</label>
+              <select id="subject" class="form-select" required>
+                <option value="" disabled selected>Select a subject</option>
+                <option value="Membership Inquiry">Membership Inquiry</option>
+                <option value="Event Information">Event Information</option>
+                <option value="Sponsorship Opportunity">Sponsorship Opportunity</option>
+                <option value="Quiz Collaboration">Quiz Collaboration</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-teal" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
+        
+        <div class="contact-info">
+          <div class="contact-info-container">
+            <h3>Meeting Information</h3>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="info-content">
+                <h4>Weekly Sessions</h4>
+                <p>Every Monday & Wednesday, 7:00 PM - 9:00 PM</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="info-content">
+                <h4>Location</h4>
+                <p>Student Center, Room 202, Westfield University Campus</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="info-content">
+                <h4>Email</h4>
+                <p>brainwave@westfield.edu</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="info-content">
+                <h4>Phone</h4>
+                <p>(555) 987-6543</p>
+              </div>
+            </div>
+            
+            <div class="social-links">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                <a href="#" class="social-icon" aria-label="Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <i class="fas fa-brain"></i>
+            <span>Brainwave</span>
+          </div>
+          <p class="footer-about">XYZ College's Premier Quiz Club, fostering intellectual curiosity and the joy of learning since 2010.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#events">Events</a>
+            <a href="#resources">Resources</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Resources</h4>
+          <div class="footer-links">
+            <a href="#">Practice Questions</a>
+            <a href="#">Quiz Strategies</a>
+            <a href="#">Topic Guides</a>
+            <a href="#">Past Competitions</a>
+            <a href="#">Study Materials</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Newsletter</h4>
+          <p>Subscribe to our newsletter for updates on quiz events, trivia nights, and competitions.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" placeholder="Your email address" class="newsletter-input" required>
+            <button type="submit" class="newsletter-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Brainwave Quiz Club, Westfield University. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Resource Data
+    const resources = [
+      {
+        id: 1,
+        title: "1000+ General Knowledge Questions",
+        description: "A comprehensive collection of practice questions covering history, science, geography, and more.",
+        category: "practice",
+        fileUrl: "#"
+      },
+      {
+        id: 2,
+        title: "Sports Trivia Question Bank",
+        description: "Test your knowledge of sports history, rules, and famous athletes with these challenging questions.",
+        category: "practice",
+        fileUrl: "#"
+      },
+      {
+        id: 3,
+        title: "Pop Culture Quiz Questions",
+        description: "Stay updated with movies, music, and TV shows through these contemporary trivia questions.",
+        category: "practice",
+        fileUrl: "#"
+      },
+      {
+        id: 4,
+        title: "Quick Recall Techniques",
+        description: "Learn methods to improve your memory and recall speed for competitive quizzing.",
+        category: "strategy",
+        fileUrl: "#"
+      },
+      {
+        id: 5,
+        title: "Team Quizzing Dynamics",
+        description: "Strategies for effective team coordination and division of topic expertise.",
+        category: "strategy",
+        fileUrl: "#"
+      },
+      {
+        id: 6,
+        title: "Buzzer Tactics and Timing",
+        description: "Master the art of buzzing at the right moment in quiz competitions.",
+        category: "strategy",
+        fileUrl: "#"
+      },
+      {
+        id: 7,
+        title: "World History Essential Facts",
+        description: "A concise guide to the most frequently quizzed historical events, figures, and timelines.",
+        category: "topics",
+        fileUrl: "#"
+      },
+      {
+        id: 8,
+        title: "Science & Technology Guide",
+        description: "Key concepts, discoveries, and innovations that often appear in quiz competitions.",
+        category: "topics",
+        fileUrl: "#"
+      },
+      {
+        id: 9,
+        title: "Art and Literature Cheat Sheet",
+        description: "Quick reference for important literary works, art movements, and their creators.",
+        category: "topics",
+        fileUrl: "#"
+      },
+      {
+        id: 10,
+        title: "National Championship 2023",
+        description: "Questions and answers from last year's collegiate quiz championship.",
+        category: "archives",
+        fileUrl: "#"
+      },
+      {
+        id: 11,
+        title: "Regional Quiz Tournament 2022",
+        description: "Complete set of questions from the regional quiz competition with explanation of answers.",
+        category: "archives",
+        fileUrl: "#"
+      },
+      {
+        id: 12,
+        title: "Freshman Quiz Challenge 2023",
+        description: "Questions from our annual event for first-year students, perfect for beginners.",
+        category: "archives",
+        fileUrl: "#"
+      }
+    ];
+
+    // DOM Elements
+    const menuButton = document.querySelector('.mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const menuIcon = document.getElementById('menu-icon');
+    const header = document.getElementById('header');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const resourcesGrid = document.getElementById('resources-grid');
+    const viewAllResourcesLink = document.getElementById('view-all-resources');
+    const contactForm = document.getElementById('contact-form');
+    const newsletterForm = document.getElementById('newsletter-form');
+    const currentYearElement = document.getElementById('current-year');
+
+    // Set current year in footer
+    currentYearElement.textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
+    menuButton.addEventListener('click', () => {
+      mobileNav.classList.toggle('active');
+      if (mobileNav.classList.contains('active')) {
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-times');
+      } else {
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+      }
+    });
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('active');
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Resources Tab Functionality
+    let activeCategory = 'practice';
+
+    function updateResourcesDisplay(category) {
+      // Filter resources by category
+      const filteredResources = resources.filter(resource => resource.category === category);
+      
+      // Update view all resources link text
+      let categoryLabel = '';
+      switch(category) {
+        case 'practice':
+          categoryLabel = 'Practice Questions';
+          break;
+        case 'strategy':
+          categoryLabel = 'Strategies';
+          break;
+        case 'topics':
+          categoryLabel = 'Topic Guides';
+          break;
+        case 'archives':
+          categoryLabel = 'Archives';
+          break;
+      }
+      viewAllResourcesLink.querySelector('span').textContent = `View All ${categoryLabel}`;
+      
+      // Clear the grid
+      resourcesGrid.innerHTML = '';
+      
+      // Check if we have resources
+      if (filteredResources.length > 0) {
+        // Create resource cards
+        filteredResources.forEach(resource => {
+          const icon = category === 'strategy' ? 'lightbulb' : 
+                      category === 'topics' ? 'book-open' : 
+                      category === 'archives' ? 'archive' : 'question';
+                      
+          const actionText = 'Download Resource';
+          
+          const card = document.createElement('div');
+          card.className = 'resource-card';
+          card.innerHTML = `
+            <div class="resource-title">
+              <i class="fas fa-${icon}"></i>
+              <h3>${resource.title}</h3>
+            </div>
+            <p>${resource.description}</p>
+            <a href="${resource.fileUrl}" class="resource-link">
+              <span>${actionText}</span>
+              <i class="fas fa-download"></i>
+            </a>
+          `;
+          
+          resourcesGrid.appendChild(card);
+        });
+      } else {
+        // Display a message if no resources found
+        const emptyMessage = document.createElement('div');
+        emptyMessage.style.gridColumn = '1 / -1';
+        emptyMessage.style.textAlign = 'center';
+        emptyMessage.style.padding = '2rem 0';
+        emptyMessage.textContent = 'No resources available in this category yet.';
+        resourcesGrid.appendChild(emptyMessage);
+      }
+    }
+
+    // Initialize resources display
+    updateResourcesDisplay(activeCategory);
+
+    // Tab buttons event listeners
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Update active category
+        activeCategory = button.dataset.tab;
+        
+        // Update resources display
+        updateResourcesDisplay(activeCategory);
+      });
+    });
+
+    // Form submissions
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      contactForm.reset();
+    });
+
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for subscribing to our newsletter!');
+      newsletterForm.reset();
+    });
+
+    // Smooth scrolling for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - header.offsetHeight,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

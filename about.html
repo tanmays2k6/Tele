@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --accent-color: #ec4899;
+            --dark-color: #111827;
+            --light-color: #f9fafb;
+            --text-color: #374151;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        .about-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .about-header::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') no-repeat;
+            background-size: cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+        
+        .about-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .about-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            opacity: 0.3;
+        }
+        
+        .shape-1 {
+            background: var(--accent-color);
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            background: var(--primary-color);
+            width: 250px;
+            height: 250px;
+            bottom: -80px;
+            left: -80px;
+        }
+        
+        .about-section {
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .about-text {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .image-gallery .col {
+            margin-bottom: 24px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            height: 250px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .feature-card {
+            padding: 25px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--dark-color);
+        }
+        
+        .feature-text {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .stats-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://cdn.dribbble.com/users/1090020/screenshots/16449394/media/f8899efa0d5f8a0c6c6d17b386e3b099.png?resize=1600x1200&vertical=center') no-repeat;
+            background-size: cover;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .timeline-section {
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            left: 0;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+            
+            .timeline-item::after {
+                left: 19px;
+                right: auto;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s forwards;
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.dribbble.com/users/1090020/screenshots/16449394/media/f8899efa0d5f8a0c6c6d17b386e3b099.png?resize=1600x1200&vertical=center') no-repeat;
+            background-size: cover;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+        }
+        
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-link::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            transition: transform 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-link:hover::before {
+            transform: translateX(3px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-subscribe {
+            position: relative;
+            max-width: 400px;
+        }
+        
+        .footer-subscribe input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .footer-subscribe input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-subscribe button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 50px;
+            padding: 0 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .footer-subscribe button:hover {
+            opacity: 0.9;
+            transform: translateX(3px);
+        }
+    </style>
+</head>
+<body>
+    <section class="about-header">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="800">
+                    <h1 class="about-title">About Campus Connect</h1>
+                    <p class="about-subtitle">Discover our story, mission, and the journey behind Campus Connect - Your ultimate platform for university life and community engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-duration="800">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="about-text">Campus Connect began as a spontaneous idea during a web development hackathon. What started as a simple project to streamline student interaction quickly evolved into something bigger. Fueled by the passion and creativity of a few college friends, the platform grew beyond expectations.
+
+                        Today, Campus Connect stands as one of the leading platforms for enhancing campus life. It bridges the gap between students and their college by centralizing events, clubs, announcements, and resources—all in one place. Whether you're looking to join a new club, find out what’s happening this week, or connect with like-minded peers, Campus Connect makes it seamless.
+                        
+                        Built by students, for students, Campus Connect continues to evolve as a vibrant digital campus community.</p>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="800">
+                    <div class="row image-gallery g-4">
+                        <div class="col-6">
+                            <div class="gallery-item">
+                                <img src="https://c8.alamy.com/comp/BF48DB/a-indian-bharatanatyam-dancer-during-a-classical-indian-dance-festival-BF48DB.jpg" alt="Cultural Activities">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="gallery-item">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT03PO9JTj8_-WxAUE02ehEJj3WoR9lPv22VA&s" alt="Library">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="gallery-item">
+                                <img src="https://c8.alamy.com/comp/JC2CA3/indian-college-friends-student-studying-laptop-library-JC2CA3.jpg" alt="Students studying">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="gallery-item">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq0SaXrD4MqiIrH-oVtEzA76GlYlBikX0ahg&s" alt="Laboratory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="section-title">What Sets Us Apart</h2>
+                <p class="mx-auto" style="max-width: 700px;">Our platform offers unique features designed to enhance your campus experience and build a stronger campus community.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="feature-title">Centralized Event Hub</h3>
+                        <p class="feature-text">A one-stop destination for all campus events, workshops, and fests—keeping students informed and engaged.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Club & Community Explorer</h3>
+                        <p class="feature-text">Discover, join, and interact with various student-run clubs and organizations. Each club has its own space to share updates and recruit members.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Real-Time Notifications & Announcements</h3>
+                        <p class="feature-text">Stay updated with real-time alerts for upcoming events, academic deadlines, and campus news—right when it matters.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="feature-title">All-in-One Campus Platform</h3>
+                        <p class="feature-text">Campus Connect unifies everything students need—events, clubs, announcements,</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="stat-number">X+</div>
+                        <div class="stat-label">Students Active Users</div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="stat-number">Y+</div>
+                        <div class="stat-label">Announcements Made</div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="stat-number">Z+</div>
+                        <div class="stat-label">Events Posted</div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Active Clubs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="timeline-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="section-title">Our Journey</h2>
+                <p class="mx-auto" style="max-width: 700px;">The key milestones that have shaped Campus Connect's evolution over the years.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025</span>
+                        <h3 class="timeline-title">The Beginning</h3>
+                        <p>Campus Connect was launched as a student project at SMVIT, serving a single campus.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-left" data-aos-duration="800">
+                    <div class="timeline-content">
+                        <span class="timeline-date">TBA</span>
+                        <h3 class="timeline-title">Regional Expansion</h3>
+                        <p>Expanded to 10 universities across the country, with enhanced features for club management.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
+                    <div class="timeline-content">
+                        <span class="timeline-date">TBA</span>
+                        <h3 class="timeline-title">Mobile App Launch</h3>
+                        <p>Released our first mobile application, making campus connectivity more accessible on-the-go.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-left" data-aos-duration="800">
+                    <div class="timeline-content">
+                        <span class="timeline-date">TBA</span>
+                        <h3 class="timeline-title">Global Recognition</h3>
+                        <p>Expanded to international universities.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
+                    <div class="timeline-content">
+                        <span class="timeline-date">TBA</span>
+                        <h3 class="timeline-title">Next Generation Platform</h3>
+                        <p>Launched the redesigned platform with AI-driven recommendations and enhanced community features.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-duration="800">
+                    <h4 class="footer-heading">Campus Connect</h4>
+                    <p class="mb-4">Your all-in-one platform for university life. Discover events, and make the most of your campus experience.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 mb-5 mb-md-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <a href="index1.html" class="footer-link">Home</a>
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Features</a>
+                    <a href="#" class="footer-link">Events</a>
+                    <a href="#" class="footer-link">Clubs</a>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 mb-5 mb-md-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <h4 class="footer-heading">Resources</h4>
+                    <a href="#" class="footer-link">Blog</a>
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Community Guidelines</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+                
+            
+            </div>
+            
+            <div class="footer-bottom text-center" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <p>© 2025 Campus Connect.Nexux404 All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

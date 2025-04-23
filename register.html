@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Campus Connect</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --accent-color: #ec4899;
+            --dark-color: #111827;
+            --light-color: #f9fafb;
+            --text-color: #374151;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            
+            /* Club theme colors */
+            --debate-color: #1A3A5F;
+            --debate-accent: #7B2D43;
+            --coding-color: #2563EB;
+            --coding-accent: #059669;
+            --quiz-color: #6B46C1;
+            --quiz-accent: #0D9488;
+            --entrepreneur-color: #3B82F6;
+            --entrepreneur-accent: #F59E0B;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        /* Modern Glassmorphism Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+        }
+        
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 10px 15px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 80px 0 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-description {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .form-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-200);
+            color: var(--dark-color);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-300);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        .form-text {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .required-field::after {
+            content: '*';
+            color: var(--danger-color);
+            margin-left: 4px;
+        }
+        
+        /* Select2 Custom Styling */
+        .select2-container--default .select2-selection--multiple {
+            border-radius: 8px;
+            border: 1px solid var(--gray-300);
+            padding: 6px 8px;
+        }
+        
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 2px 10px;
+        }
+        
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: rgba(255, 255, 255, 0.8);
+            margin-right: 5px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #db2777;
+            border-color: #db2777;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            max-width: 120px;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            right: -50%;
+            height: 3px;
+            background: var(--gray-300);
+            z-index: -1;
+        }
+        
+        .step.completed:not(:last-child)::after {
+            background: var(--primary-color);
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gray-300);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-circle {
+            background-color: var(--primary-color);
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.2);
+        }
+        
+        .step.completed .step-circle {
+            background-color: var(--success-color);
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-text {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .step.completed .step-text {
+            color: var(--success-color);
+        }
+        
+        /* Profile Image Upload */
+        .profile-upload {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-upload:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .profile-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .profile-upload.has-image img {
+            display: block;
+        }
+        
+        .profile-upload.has-image .upload-icon {
+            display: none;
+        }
+        
+        .profile-upload .upload-icon {
+            font-size: 2rem;
+            color: var(--gray);
+        }
+        
+        .profile-upload .upload-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-upload:hover .upload-overlay {
+            opacity: 1;
+        }
+        
+        .profile-upload .upload-overlay i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Input with icon */
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 15px;
+            color: var(--gray);
+        }
+        
+        .input-with-icon .form-control {
+            padding-left: 45px;
+        }
+        
+        /* Club Interest Section */
+        .club-interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .club-interest-card {
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .club-interest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .club-interest-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+        
+        .club-interest-card .club-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+        }
+        
+        .club-interest-card .club-icon.debate {
+            background-color: var(--debate-color);
+        }
+        
+        .club-interest-card .club-icon.coding {
+            background-color: var(--coding-color);
+        }
+        
+        .club-interest-card .club-icon.quiz {
+            background-color: var(--quiz-color);
+        }
+        
+        .club-interest-card .club-icon.entrepreneur {
+            background-color: var(--entrepreneur-color);
+        }
+        
+        .club-interest-card .club-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .club-interest-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        /* Validation Styles */
+        .is-invalid {
+            border-color: var(--danger-color) !important;
+        }
+        
+        .invalid-feedback {
+            color: var(--danger-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Utility Classes */
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+        
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .bg-accent {
+            background-color: var(--accent-color) !important;
+        }
+        
+        /* Floating elements animation */
+        .animation-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            background-color: var(--white);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            background-color: var(--white);
+            border-radius: 64% 36% 27% 73% / 55% 58% 42% 45%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(15px, 15px) rotate(10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="campus-connect.html">Campus<span class="text-accent">Connect</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index1.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="clubs.html">Clubs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="campus-connect.html#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="campus-connect.html#resources">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="campus-connect.html#contact">Contact</a>
+                    </li>
+                </ul>
+                <a href="register.html" class="btn btn-primary ms-lg-3 active">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="animation-container">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="page-title" data-aos="fade-up">Join Our Community</h1>
+                    <p class="page-description" data-aos="fade-up" data-aos-delay="100">
+                        Create your account to join clubs, register for events, and connect with other students at XYZ College.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-container" data-aos="fade-up">
+                        <!-- Step Indicators -->
+                        <div class="step-indicator mb-5">
+                            <div class="step active" data-step="1">
+                                <div class="step-circle">1</div>
+                                <div class="step-text">Personal Info</div>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-circle">2</div>
+                                <div class="step-text">Academic Details</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-circle">3</div>
+                                <div class="step-text">Interests</div>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-circle">4</div>
+                                <div class="step-text">Finish</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Registration Form -->
+                        <form id="registrationForm">
+                            <!-- Step 1: Personal Information -->
+                            <div class="form-step active" id="step1">
+                                <h3 class="form-section-title">Personal Information</h3>
+                                
+                                <!-- Profile Picture Upload -->
+                                <div class="text-center mb-4">
+                                    <div class="profile-upload" id="profileUpload">
+                                        <input type="file" id="profilePicture" accept="image/*" hidden>
+                                        <div class="upload-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <img id="profilePreview" src="#" alt="Profile Preview">
+                                        <div class="upload-overlay">
+                                            <i class="fas fa-camera"></i>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Click to upload profile picture (optional)</small>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label required-field">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                                        <div class="invalid-feedback">Please enter your first name</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label required-field">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                                        <div class="invalid-feedback">Please enter your last name</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label required-field">Email Address</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please enter a valid email address</div>
+                                    <div class="form-text">We'll never share your email with anyone else.</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label required-field">Phone Number</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please enter a valid phone number</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="dob" class="form-label required-field">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dob" required>
+                                    <div class="invalid-feedback">Please enter your date of birth</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label required-field">Gender</label>
+                                    <div class="d-flex gap-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                                            <label class="form-check-label" for="genderMale">Male</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                                            <label class="form-check-label" for="genderFemale">Female</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                                            <label class="form-check-label" for="genderOther">Other</label>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">Please select your gender</div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-primary next-step">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Academic Details -->
+                            <div class="form-step" id="step2">
+                                <h3 class="form-section-title">Academic Information</h3>
+                                
+                                <div class="mb-3">
+                                    <label for="usn" class="form-label required-field">University Student Number (USN)</label>
+                                    <input type="text" class="form-control" id="usn" placeholder="Enter your USN" required>
+                                    <div class="invalid-feedback">Please enter your university student number</div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="department" class="form-label required-field">Department</label>
+                                        <select class="form-select" id="department" required>
+                                            <option value="" selected disabled>Select your department</option>
+                                            <option value="computer-science">Computer Science</option>
+                                            <option value="electrical-engineering">Electrical Engineering</option>
+                                            <option value="mechanical-engineering">Mechanical Engineering</option>
+                                            <option value="civil-engineering">Civil Engineering</option>
+                                            <option value="business">Business Administration</option>
+                                            <option value="arts">Arts and Humanities</option>
+                                            <option value="science">Science</option>
+                                            <option value="medicine">Medicine</option>
+                                            <option value="law">Law</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select your department</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="year" class="form-label required-field">Year of Study</label>
+                                        <select class="form-select" id="year" required>
+                                            <option value="" selected disabled>Select your year</option>
+                                            <option value="1">First Year</option>
+                                            <option value="2">Second Year</option>
+                                            <option value="3">Third Year</option>
+                                            <option value="4">Fourth Year</option>
+                                            <option value="5">Fifth Year</option>
+                                            <option value="masters">Masters</option>
+                                            <option value="phd">PhD</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select your year of study</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="address" class="form-label required-field">Current Address</label>
+                                    <textarea class="form-control" id="address" rows="3" placeholder="Enter your current address" required></textarea>
+                                    <div class="invalid-feedback">Please enter your current address</div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="city" class="form-label required-field">City</label>
+                                        <input type="text" class="form-control" id="city" placeholder="Enter your city" required>
+                                        <div class="invalid-feedback">Please enter your city</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pincode" class="form-label required-field">Postal/Zip Code</label>
+                                        <input type="text" class="form-control" id="pincode" placeholder="Enter your postal code" required>
+                                        <div class="invalid-feedback">Please enter your postal/zip code</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="state" class="form-label required-field">State/Province</label>
+                                    <input type="text" class="form-control" id="state" placeholder="Enter your state" required>
+                                    <div class="invalid-feedback">Please enter your state</div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-primary prev-step"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                                    <button type="button" class="btn btn-primary next-step">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Interests -->
+                            <div class="form-step" id="step3">
+                                <h3 class="form-section-title">Interests & Preferences</h3>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label required-field">Clubs You're Interested In</label>
+                                    <p class="form-text mb-2">Select one or more clubs you'd like to join or learn more about</p>
+                                    
+                                    <div class="club-interest-grid">
+                                        <label class="club-interest-card" for="club1">
+                                            <input type="checkbox" id="club1" name="clubInterest" value="eloquence">
+                                            <div class="club-icon debate">
+                                                <i class="fas fa-comments"></i>
+                                            </div>
+                                            <div class="club-name">Eloquence (Debate)</div>
+                                        </label>
+                                        
+                                        <label class="club-interest-card" for="club2">
+                                            <input type="checkbox" id="club2" name="clubInterest" value="codeforge">
+                                            <div class="club-icon coding">
+                                                <i class="fas fa-code"></i>
+                                            </div>
+                                            <div class="club-name">CodeForge (Coding)</div>
+                                        </label>
+                                        
+                                        <label class="club-interest-card" for="club3">
+                                            <input type="checkbox" id="club3" name="clubInterest" value="brainwave">
+                                            <div class="club-icon quiz">
+                                                <i class="fas fa-brain"></i>
+                                            </div>
+                                            <div class="club-name">Brainwave (Quiz)</div>
+                                        </label>
+                                        
+                                        <label class="club-interest-card" for="club4">
+                                            <input type="checkbox" id="club4" name="clubInterest" value="venture">
+                                            <div class="club-icon entrepreneur">
+                                                <i class="fas fa-lightbulb"></i>
+                                            </div>
+                                            <div class="club-name">Venture (Business)</div>
+                                        </label>
+                                    </div>
+                                    <div class="invalid-feedback">Please select at least one club</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="skills" class="form-label">Skills & Expertise</label>
+                                    <select class="form-select" id="skills" multiple="multiple">
+                                        <option value="public-speaking">Public Speaking</option>
+                                        <option value="leadership">Leadership</option>
+                                        <option value="programming">Programming</option>
+                                        <option value="web-development">Web Development</option>
+                                        <option value="mobile-development">Mobile App Development</option>
+                                        <option value="data-science">Data Science</option>
+                                        <option value="design">Design</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="finance">Finance</option>
+                                        <option value="project-management">Project Management</option>
+                                        <option value="research">Research</option>
+                                        <option value="writing">Writing</option>
+                                        <option value="social-media">Social Media</option>
+                                        <option value="video-editing">Video Editing</option>
+                                        <option value="photography">Photography</option>
+                                    </select>
+                                    <div class="form-text">Select your skills that you could contribute to clubs</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="bio" class="form-label">Short Bio</label>
+                                    <textarea class="form-control" id="bio" rows="3" placeholder="Tell us a bit about yourself, your interests, and what you hope to gain from joining campus clubs"></textarea>
+                                    <div class="form-text">This helps club leaders get to know you better (optional)</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="notifications" checked>
+                                        <label class="form-check-label" for="notifications">
+                                            Receive notifications about club events and activities
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-primary prev-step"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                                    <button type="button" class="btn btn-primary next-step">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Account Setup -->
+                            <div class="form-step" id="step4">
+                                <h3 class="form-section-title">Account Setup</h3>
+                                
+                                <div class="mb-4">
+                                    <label for="username" class="form-label required-field">Username</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please choose a username</div>
+                                    <div class="form-text">This will be used to log into your account</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="password" class="form-label required-field">Password</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+                                    </div>
+                                    <div class="invalid-feedback">Password must be at least 8 characters</div>
+                                    <div class="form-text">Must be at least 8 characters and include a mix of letters, numbers, and symbols</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="confirmPassword" class="form-label required-field">Confirm Password</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                                    </div>
+                                    <div class="invalid-feedback">Passwords do not match</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="termsAgree" required>
+                                        <label class="form-check-label" for="termsAgree">
+                                            I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                                        </label>
+                                        <div class="invalid-feedback">You must agree to the terms to continue</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-primary prev-step"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                                    <button type="submit" class="btn btn-accent">Create Account <i class="fas fa-user-plus ms-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <!-- Success Message (Hidden initially) -->
+                        <div id="registrationSuccess" style="display: none;" class="text-center py-5">
+                            <div class="mb-4">
+                                <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+                            </div>
+                            <h2 class="mb-3">Registration Successful!</h2>
+                            <p class="mb-4">Your account has been created successfully. You can now log in to access club information and events.</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="campus-connect.html" class="btn btn-outline-primary">Go to Homepage</a>
+                                <button class="btn btn-primary" id="loginBtn">Login Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h3 class="footer-heading">Campus<span class="text-warning">Connect</span></h3>
+                    <p class="mb-4">Your one-stop platform for campus engagement, club discovery, and university resources.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="campus-connect.html" class="footer-link">Home</a></li>
+                        <li><a href="campus-connect.html#clubs" class="footer-link">Clubs</a></li>
+                        <li><a href="campus-connect.html#events" class="footer-link">Events</a></li>
+                        <li><a href="campus-connect.html#resources" class="footer-link">Resources</a></li>
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h4 class="footer-heading">Clubs</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="debate.html" class="footer-link">Eloquence Debate Club</a></li>
+                        <li><a href="code.html" class="footer-link">CodeForge Coding Club</a></li>
+                        <li><a href="quiz.html" class="footer-link">Brainwave Quiz Club</a></li>
+                        <li><a href="ecell.html" class="footer-link">Venture Entrepreneurship Club</a></li>
+                        <li><a href="#" class="footer-link">View All Clubs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="footer-heading">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-map-marker-alt mt-1 me-3 text-accent"></i>
+                            <span>Student Center, Room 101<br>XYZ COllege Campus</span>
+                        </li>
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-envelope mt-1 me-3 text-accent"></i>
+                            <span>contact@campusconnect.edu</span>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-phone-alt mt-1 me-3 text-accent"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 CampusConnect. All rights reserved. | <a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- jQuery (needed for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Initialize Select2
+        $(document).ready(function() {
+            $('#skills').select2({
+                placeholder: 'Select your skills',
+                closeOnSelect: false,
+                allowClear: true,
+                width: '100%'
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-3');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2');
+            }
+        });
+        
+        // Multi-step form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const steps = document.querySelectorAll('.form-step');
+            const stepIndicators = document.querySelectorAll('.step');
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            const clubInterestCards = document.querySelectorAll('.club-interest-card');
+            const successMessage = document.getElementById('registrationSuccess');
+            
+            // Handle club interest selection
+            clubInterestCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    
+                    if (checkbox.checked) {
+                        this.classList.add('selected');
+                    } else {
+                        this.classList.remove('selected');
+                    }
+                });
+            });
+            
+            // Handle profile picture upload
+            const profileUpload = document.getElementById('profileUpload');
+            const profileInput = document.getElementById('profilePicture');
+            const profilePreview = document.getElementById('profilePreview');
+            
+            profileUpload.addEventListener('click', () => {
+                profileInput.click();
+            });
+            
+            profileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePreview.src = e.target.result;
+                        profileUpload.classList.add('has-image');
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            // Form validation functions
+            function validateStep(stepNumber) {
+                const currentStep = document.getElementById(`step${stepNumber}`);
+                const requiredFields = currentStep.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (field.type === 'radio') {
+                        const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
+                        const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                        
+                        if (!isChecked) {
+                            isValid = false;
+                            field.closest('.mb-3').querySelector('.invalid-feedback').style.display = 'block';
+                        } else {
+                            field.closest('.mb-3').querySelector('.invalid-feedback').style.display = 'none';
+                        }
+                    } 
+                    else if (field.type === 'checkbox' && field.name === 'clubInterest') {
+                        const checkboxes = document.querySelectorAll('input[name="clubInterest"]');
+                        const isChecked = Array.from(checkboxes).some(cb => cb.checked);
+                        
+                        if (!isChecked) {
+                            isValid = false;
+                            field.closest('.mb-4').querySelector('.invalid-feedback').style.display = 'block';
+                        } else {
+                            field.closest('.mb-4').querySelector('.invalid-feedback').style.display = 'none';
+                        }
+                    }
+                    else if (field.type === 'checkbox' && field.id === 'termsAgree') {
+                        if (!field.checked) {
+                            isValid = false;
+                            field.classList.add('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'block';
+                        } else {
+                            field.classList.remove('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'none';
+                        }
+                    }
+                    else if (field.id === 'confirmPassword') {
+                        const password = document.getElementById('password');
+                        if (field.value !== password.value) {
+                            isValid = false;
+                            field.classList.add('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'block';
+                        } else {
+                            field.classList.remove('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'none';
+                        }
+                    }
+                    else if (field.id === 'password') {
+                        if (field.value.length < 8) {
+                            isValid = false;
+                            field.classList.add('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'block';
+                        } else {
+                            field.classList.remove('is-invalid');
+                            field.nextElementSibling.nextElementSibling.style.display = 'none';
+                        }
+                    }
+                    else if (field.value.trim() === '') {
+                        isValid = false;
+                        field.classList.add('is-invalid');
+                        
+                        // Get the error message element
+                        let errorElement = field.nextElementSibling;
+                        if (errorElement && errorElement.classList.contains('invalid-feedback')) {
+                            errorElement.style.display = 'block';
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                        
+                        // Hide error message
+                        let errorElement = field.nextElementSibling;
+                        if (errorElement && errorElement.classList.contains('invalid-feedback')) {
+                            errorElement.style.display = 'none';
+                        }
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Next button click handler
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = parseInt(this.closest('.form-step').id.replace('step', ''));
+                    
+                    if (validateStep(currentStep)) {
+                        // Hide current step
+                        document.getElementById(`step${currentStep}`).classList.remove('active');
+                        
+                        // Show next step
+                        document.getElementById(`step${currentStep + 1}`).classList.add('active');
+                        
+                        // Update step indicator
+                        stepIndicators[currentStep - 1].classList.add('completed');
+                        stepIndicators[currentStep].classList.add('active');
+                        
+                        // Scroll to top of form
+                        form.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            // Previous button click handler
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = parseInt(this.closest('.form-step').id.replace('step', ''));
+                    
+                    // Hide current step
+                    document.getElementById(`step${currentStep}`).classList.remove('active');
+                    
+                    // Show previous step
+                    document.getElementById(`step${currentStep - 1}`).classList.add('active');
+                    
+                    // Update step indicator
+                    stepIndicators[currentStep].classList.remove('active');
+                    stepIndicators[currentStep - 1].classList.remove('completed');
+                    stepIndicators[currentStep - 1].classList.add('active');
+                    
+                    // Scroll to top of form
+                    form.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateStep(4)) {
+                    // In a real application, you would submit the form data to the server here
+                    // For this example, we'll just show the success message
+                    
+                    // Hide form
+                    form.style.display = 'none';
+                    
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Update all step indicators to completed
+                    stepIndicators.forEach(step => {
+                        step.classList.add('completed');
+                    });
+                }
+            });
+            
+            // Login button click handler
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                // In a real application, you would redirect to the login page
+                // For this example, we'll just redirect to the home page
+                window.location.href = 'campus-connect.html';
+            });
+        });
+    </script>
+</body>
+</html>
